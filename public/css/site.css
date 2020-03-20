@@ -1,0 +1,247 @@
+/************ Reset ************/
+
+* { padding:0; margin:0; }
+
+/************ Body and Main Layout ************/
+
+/* Required For IE11 when using Flexbox fixed footer layout */
+html, body { height:100%; }
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+body > main {
+    flex: 1 0 auto;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+/************ General Layout and Colors ************/
+
+/*
+    CSS Variables, supported in modern browsers but not IE 11.
+    Fallbacks colors can be handled inline by including both 
+    standard color and variable color, example:
+        background-color:red; background-color:var(--error-color);
+    or below using the below [ms-high-contrast] section for IE.
+
+    Colors are from:
+    https://www.pantone.com/color-intelligence/fashion-color-trend-report/fashion-color-trend-report-london-autumn-winter-2019-2020
+        --main-color:  https://www.pantone.com/color-finder/18-4217-TCX
+        --error-color: https://www.pantone.com/color-finder/17-1450-TCX
+        --info-color:  https://www.pantone.com/color-finder/19-4055-TCX
+*/
+:root {
+    --main-color: rgb(87, 114, 132);
+    --dark-color: hsla(204, 21%, 23%, 1);
+    --light-color: hsla(204, 21%, 83%, 1);
+    --lightest-color: hsla(204, 21%, 93%, 1);
+    --error-color: rgb(190, 75, 59);
+    --info-color: rgb(42, 75, 124);
+}
+
+/*
+    Use fallback colors for key page elements for IE and make minor adjustments as needed.
+    This does not make IE look exactly like modern browsers but it makes it good enough
+    to use the site.
+*/
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+    header,
+    footer,
+    .nav.flex-column .nav-item a:hover { background-color:rgb(87, 114, 132); }
+
+    body,
+    a,
+    a:visited { color:hsla(204, 21%, 23%, 1); }
+
+    .nav-item.active .nav-link,
+    .jumbotron,
+    .mobile-menu ul li.active a { background-color:hsla(204, 21%, 23%, 1); }
+
+    .nav-item:not(.active):hover .nav-link,
+    .mobile-menu ul li:not(.active):hover a { background-color:hsla(204, 21%, 83%, 1); color:rgb(87, 114, 132); }
+    .nav-item.active:hover .nav-link { color:rgb(87, 114, 132); }
+
+    .mobile-nav .site-title a,
+    .mobile-nav .open-menu a {
+        background-color: hsla(204, 21%, 93%, 1);
+        background-image: linear-gradient(0deg, #fff 0%, hsla(204, 21%, 93%, 1) 100%);
+    }
+    .mobile-nav .site-title a:hover,
+    .mobile-nav .open-menu a:hover {
+        background-color: hsla(204, 21%, 83%, 1);
+        background-image: linear-gradient(0deg, hsla(204, 21%, 83%, 1) 0%, #fff 100%);
+    }
+
+    .mobile-menu { left: 10px; }
+}
+
+body {
+    background-color: var(--lightest-color);
+    background-image: url('../img/site-background.svg');
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+section { background-color: white; }
+
+.mobile-nav { display:flex; justify-content: space-between; }
+.mobile-nav .site-title,
+.mobile-nav .open-menu {
+    display: inline-flex;
+}
+.mobile-nav .site-title a,
+.mobile-nav .open-menu a {
+    margin:10px;
+    border-radius:2px;
+    background-color: var(--lightest-color);
+    background-image: linear-gradient(0deg, #fff 0%, var(--lightest-color) 100%);
+    padding:10px 20px;
+    font-weight:bold;
+    text-decoration: none;
+}
+.mobile-nav .site-title a:hover,
+.mobile-nav .open-menu a:hover {
+    background-color: var(--light-color);
+    background-image: linear-gradient(0deg, var(--light-color) 0%, #fff 100%);
+    border-radius:2px;    
+}
+
+.mobile-menu {
+    display:block;
+    background-color: white;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,.5);
+    border-radius: 4px;
+    z-index: 1000;
+    position: absolute;
+    width: calc(100% - 20px);
+    top: 10px;
+    margin-left: -5px;
+    text-align: right;
+}
+.mobile-menu .close-menu a {
+    margin: 20px;
+    text-decoration: none;
+    display: inline-block;
+}
+.mobile-menu ul {
+    display:flex;
+    flex-wrap:wrap;
+    list-style-type:none;
+    text-align:left;
+    max-width:400px;
+    margin:auto;
+    margin-bottom:20px;
+}
+.mobile-menu ul li { width:calc(50% - 20px); margin:10px; max-width:200px; }
+.mobile-menu ul.i18n-menu li { width:100%; text-align:center; max-width:400px; }
+.mobile-menu ul li a { text-decoration:none; font-weight:bold; padding:10px 20px; display:block; }
+.mobile-menu ul li.active a {
+    background-color: var(--dark-color);
+    border-radius:2px;
+    color: white;
+}
+.mobile-menu ul li:not(.active):hover a {
+    background-color: var(--light-color);
+    border-radius:2px;
+    color:var(--main-color);
+}
+.mobile-menu ul li.active:hover a {
+    color: var(--light-color);
+}
+
+nav.navbar { text-align:center; }
+.navbar-nav { margin:auto; font-weight:bold; }
+.navbar-nav .nav-link { padding:.5em 2em; color:white; margin:auto 5px; }
+.nav-item.active .nav-link { background-color:var(--dark-color); box-shadow:0 0 1px 2px rgba(0,0,0,.5); padding:10px 20px; }
+.nav-item:not(.active):hover .nav-link { background-color:var(--light-color); color:var(--main-color); }
+.nav-item.active:hover .nav-link { color:var(--light-color); }
+.nav.flex-column .nav-item a {
+    padding: 0.5em 1em;
+    display: block;
+}
+.nav.flex-column .nav-item a:hover {
+    background-color: var(--main-color);
+    color:white;
+}
+
+.nav-item.sub-menu { position:relative; }
+.nav-item.sub-menu div { display:flex; align-items:center; margin-left: 15px; }
+html[dir="rtl"] .nav-item.sub-menu div { margin-left:0; margin-right:15px; }
+.nav-item.sub-menu ul {
+    display:none;
+    position:absolute;
+    background-color: white;
+    white-space: nowrap;
+    border: 1px solid #3C456F;
+    box-shadow: inset 0px 0px 1px 0px #4F5B93;
+    list-style-type: none;
+    z-index: 1000;
+    text-align: left;
+}
+.nav-item.sub-menu span { cursor:help; display: inline-block; padding:10px 15px; font-weight:bold; color: #fff; text-decoration: none; position: relative; }
+.nav-item.sub-menu.i18n-menu ul { right: 0; }
+html[dir="rtl"] .nav-item.sub-menu.i18n-menu ul { right: initial; left:0 }
+.nav-item.sub-menu ul li.active { background-color: #E2E4EF; }
+.nav-item.sub-menu ul li:hover { background-color: #BCC1DB; }
+.nav-item.sub-menu:hover ul { display:block; }
+.nav-item.sub-menu a { display:block; padding:10px 20px; }
+
+.desktop-nav { display:none; }
+@media screen and (min-width: 700px) {
+    .mobile-nav,
+    .mobile-menu { display:none; }
+    .desktop-nav {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+}
+
+body,
+a,
+a:visited { color:var(--dark-color); }
+
+.jumbotron { background-color:var(--dark-color); margin-top:50px; }
+.jumbotron h1 { color:white; }
+
+main, footer { text-align:center; }
+header { background-color:var(--main-color); box-shadow:0 0 1px 1px rgba(0, 0, 0, .5); }
+footer { background-color:var(--main-color); padding:1em; color:white; box-shadow:0 0 1px 1px rgba(0, 0, 0, .5); }
+footer p { margin-bottom:0; }
+section { box-shadow: 0 1px 5px 0 rgba(0,0,0,.5); margin-top:4em; padding:2em; overflow:auto; }
+
+.alert-info { background-color:var(--info-color); color:white; }
+.alert-danger { background-color:red; background-color:var(--error-color); color:white; }
+
+.table { color: var(--dark-color); background-color:#fff; }
+.table thead th,
+.table td,
+.table th { border-top:none; border-bottom:none; }
+
+.table-striped tbody tr:nth-of-type(odd) { background-color:var(--light-color); }
+
+.table.table-bordered thead th,
+.table.table-bordered td,
+.table.table-bordered th { 
+    border-top:1px solid var(--dark-color);
+    border-bottom:1px solid var(--dark-color);
+}
+.table-bordered td, .table-bordered th {
+    border:1px solid var(--dark-color);
+}
+
+.btn-primary { background-color: var(--main-color); border-color: var(--dark-color); }
+.btn-primary:hover,
+.btn-primary:not(:disabled):not(.disabled):active { background-color: var(--dark-color); }
+a.btn-primary:visited { color:#fff; }
+
+.btn-primary.disabled, .btn-primary:disabled { background-color: var(--light-color); border-color: var(--light-color); }
+
+.login-form,
+.auth-demo { max-width:600px; margin:40px auto; }
+.login-form .form-group,
+.auth-demo p { margin:2em auto; }
